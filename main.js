@@ -1,5 +1,7 @@
-var os = require('os');
-var colors = require('colors');
+const os = require('os');
+const colors = require('colors');
+const prompt = require('prompt-sync')();
+
 colors.enable();
 function logo(){
 	console.log("\n=========================================".green);
@@ -28,5 +30,86 @@ function value_Output(){
 	console.log("\n");
 }
 
-logo()
-value_Output()
+/*function network_Selection(parameter){
+	const response = prompt("IPv4 Only? >: ");
+	var interfaces = Object.keys(os.networkInterfaces());
+	var selection = os.networkInterfaces()[interfaces[parameter-1]];
+	if(response.toLowerCase() == "yes" || response.toLowerCase() == "y"){
+		console.log("\n(*)(*)(*)(*)(*)".brightYellow);
+		for (let dicts in selection){
+			if(selection[dicts]['family'] == 'IPv4'){
+				for(let values in selection[dicts]){
+					paring(values, selection[dicts][values]);
+				}
+			}
+		}
+		console.log("(*)(*)(*)(*)(*)\n".brightYellow);
+	} else {
+		for (let dicts in selection){
+			console.log("\n(*)(*)(*)(*)(*)".brightYellow);
+				for(let values in selection[dicts]){
+					paring(values, selection[dicts][values]);
+				}
+				console.log("(*)(*)(*)(*)(*)\n".brightYellow);
+			
+		}
+	}
+}
+
+function network_Enum(){
+	var interfaces = Object.keys(os.networkInterfaces());
+	console.log("\n");
+	for (let index = 0; index < interfaces.length; index++){
+		console.log(`Option ${index+1}: `.red + `${interfaces[index]}`.brightWhite);
+	} 
+
+	console.log("\n");
+	const response = prompt("Selection >: ");
+	network_Selection(response);
+}*/
+
+
+/*logo()
+value_Output()*/
+
+function printNetworkInterfaces(interfaces) {
+    console.log("\n");
+    for (let index = 0; index < interfaces.length; index++) {
+        console.log(`Option ${index + 1}: `.red + `${interfaces[index]}`.brightWhite);
+    }
+    console.log("\n");
+}
+
+function printInterfaceDetails(interfaceDetails) {
+    console.log("\n(*)(*)(*)(*)(*)".brightYellow);
+    for (let values in interfaceDetails) {
+        paring(values, interfaceDetails[values]);
+    }
+    console.log("(*)(*)(*)(*)(*)\n".brightYellow);
+}
+
+function networkSelection(parameter) {
+    const response = prompt("IPv4 Only? >: ").toLowerCase();
+    const interfaces = Object.keys(os.networkInterfaces());
+    const selection = os.networkInterfaces()[interfaces[parameter - 1]];
+
+    if (response === "yes" || response === "y") {
+        printInterfaceDetails(
+            selection.filter(details => details.family === 'IPv4')[0]
+        );
+    } else {
+        for (let details of selection) {
+            printInterfaceDetails(details);
+        }
+    }
+}
+
+function networkEnum() {
+    const interfaces = Object.keys(os.networkInterfaces());
+    printNetworkInterfaces(interfaces);
+
+    const response = prompt("Selection >: ");
+    networkSelection(response);
+}
+
+networkEnum();
