@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*
 Created by Joseph R. Shumaker
 Date: 08 / 12 / 2023
@@ -29,6 +30,28 @@ function logo() {
 	console.log("Program Made By Joseph R. Shumaker".green);
 	console.log("https://github.com/s5y-ux".green);
 	console.log("=========================================\n".green);
+}
+
+//Function used for listening to keystrokes
+function test(){
+	  const readline = require('readline');
+
+	  const reference = Array.from({ length: os.cpus().length }, (_, i) => i + 1);
+	  let value = 0;
+
+	  readline.emitKeypressEvents(process.stdin);
+	  process.stdin.setRawMode(true);
+
+	  process.stdin.on('keypress', (_, { ctrl, name }) => {
+	    if (ctrl && name === 'c') {
+	      process.exit();
+	    } else if (name === 'right' && value < reference.length - 1) {
+	      value++;
+	    } else if (name === 'left' && value > 0) {
+	      value--;
+	    }
+	    monitorCPUCore(reference[value]);
+	  });
 }
 
 //Function used to decorate information
@@ -186,6 +209,9 @@ switch (args[0]) {
 		break;
 	case "-network":
 		networkEnum();
+		break;
+	case "-test":
+		test();
 		break;
 	default:
 		logo();

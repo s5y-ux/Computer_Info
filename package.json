@@ -1,15 +1,1 @@
-{
-"name" : "Sysinfo",
-"version" : "v1.0.1",
-"description": "",
-"main": "main.js",
-"author": "Joseph R. Shumaker",
-"license": "Apache 2.0",
-  "dependencies": {
-    "colors": "^1.4.0",
-    "prompt-sync": "^4.2.0"
-  },
-  "bin": {
-  "sysinfo": "/main.js"
-  }
-}
+{"name":"Sysinfo","version":"v1.0.1","description":"","main":"main.js","author":"Joseph R. Shumaker","license":"Apache 2.0","dependencies":{"colors":"^1.4.0","key":"^0.1.11","prompt-sync":"^4.2.0"},"bin":{"sysinfo":"/main.js"}}
